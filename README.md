@@ -1,6 +1,6 @@
 # 🙅 valeed
 
-Your go-to validation library. Struct tag-based.
+Your opinionated go-to validation library. Struct tag-based.
 
 Validate here, validate there, validate everywhere. Sleek and simple validation to the rescue. Opinionated wrapper on famous https://github.com/go-playground/validator.
 
