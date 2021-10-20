@@ -1,21 +1,21 @@
-package validatia_test
+package valeed_test
 
 import (
 	"strings"
 	"testing"
 
-	"github.com/avrebarra/validatia"
+	"github.com/avrebarra/valeed"
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var (
-	Validatia_SampleValid = SampleStruct{
+	valeed_SampleValid = SampleStruct{
 		Value1: "ok",
 		Value2: 100,
 	}
-	Validatia_SampleInvalid = SampleStruct{
+	valeed_SampleInvalid = SampleStruct{
 		Value1: "",
 		Value2: 2,
 	}
@@ -24,10 +24,10 @@ var (
 func TestValidator_Validate(t *testing.T) {
 	t.Run("ok valid", func(t *testing.T) {
 		// arrange
-		v := validatia.Validator{Core: validator.New()}
+		v := valeed.Validator{Core: validator.New()}
 
 		// act
-		err := v.Validate(Validatia_SampleValid)
+		err := v.Validate(valeed_SampleValid)
 
 		// assert
 		assert.NoError(t, err)
@@ -35,10 +35,10 @@ func TestValidator_Validate(t *testing.T) {
 
 	t.Run("ok invalid", func(t *testing.T) {
 		// arrange
-		v := validatia.Validator{Core: validator.New()}
+		v := valeed.Validator{Core: validator.New()}
 
 		// act
-		err := v.Validate(Validatia_SampleInvalid)
+		err := v.Validate(valeed_SampleInvalid)
 
 		// assert
 		assert.Error(t, err)
@@ -49,24 +49,24 @@ func TestValidator_Validate(t *testing.T) {
 func TestValidator_ValidateWithOpts(t *testing.T) {
 	t.Run("ok valid", func(t *testing.T) {
 		// arrange
-		v := validatia.Validator{Core: validator.New()}
+		v := valeed.Validator{Core: validator.New()}
 
 		// act
-		err := v.ValidateWithOpts(Validatia_SampleValid, validatia.ValidateOptions{Mode: validatia.ModeVerbose})
+		err := v.ValidateWithOpts(valeed_SampleValid, valeed.ValidateOptions{Mode: valeed.ModeVerbose})
 
 		// assert
 		assert.NoError(t, err)
 	})
 
 	t.Run("ok invalid", func(t *testing.T) {
-		t.Skip() // already tested in Test_errvalidatia_Error
+		t.Skip() // already tested in Test_errvaleed_Error
 	})
 }
 
-func Test_errvalidatia_Error(t *testing.T) {
+func Test_errvaleed_Error(t *testing.T) {
 	t.Run("ok mode compact", func(t *testing.T) {
 		// arrange
-		err := validatia.ValidateWithOpts(Validatia_SampleInvalid, validatia.ValidateOptions{Mode: validatia.ModeCompact})
+		err := valeed.ValidateWithOpts(valeed_SampleInvalid, valeed.ValidateOptions{Mode: valeed.ModeCompact})
 		require.Error(t, err)
 
 		// act
@@ -78,7 +78,7 @@ func Test_errvalidatia_Error(t *testing.T) {
 
 	t.Run("ok mode verbose", func(t *testing.T) {
 		// arrange
-		err := validatia.ValidateWithOpts(Validatia_SampleInvalid, validatia.ValidateOptions{Mode: validatia.ModeVerbose})
+		err := valeed.ValidateWithOpts(valeed_SampleInvalid, valeed.ValidateOptions{Mode: valeed.ModeVerbose})
 		require.Error(t, err)
 
 		// act

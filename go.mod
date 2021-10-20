@@ -1,4 +1,4 @@
-module github.com/avrebarra/validatia
+module github.com/avrebarra/valeed
 
 go 1.15
 

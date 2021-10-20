@@ -1,4 +1,4 @@
-package validatia
+package valeed
 
 import (
 	"fmt"
@@ -41,14 +41,14 @@ func ValidateWithOpts(in interface{}, opt ValidateOptions) (err error) {
 
 // ***
 
-type errvalidatia struct {
+type errvaleed struct {
 	original error
 
 	metamode   Mode
 	metaerrloc string
 }
 
-func (err errvalidatia) Error() (out string) {
+func (err errvaleed) Error() (out string) {
 	// check if castable to validation error
 	errValidator, ok := err.original.(validator.ValidationErrors)
 	if !ok {
@@ -95,7 +95,7 @@ func (err errvalidatia) Error() (out string) {
 	return
 }
 
-func (e errvalidatia) Unwrap() error {
+func (e errvaleed) Unwrap() error {
 	return e.original
 }
 
@@ -110,7 +110,7 @@ func (v Validator) Validate(in interface{}) (err error) {
 	if errv == nil {
 		return
 	}
-	return errvalidatia{original: errv, metamode: ModeDefault, metaerrloc: getCallerFuncName()}
+	return errvaleed{original: errv, metamode: ModeDefault, metaerrloc: getCallerFuncName()}
 }
 
 type ValidateOptions struct {
@@ -122,7 +122,7 @@ func (v Validator) ValidateWithOpts(in interface{}, opt ValidateOptions) (err er
 	if errv == nil {
 		return
 	}
-	return errvalidatia{original: errv, metamode: opt.Mode, metaerrloc: getCallerFuncName()}
+	return errvaleed{original: errv, metamode: opt.Mode, metaerrloc: getCallerFuncName()}
 }
 
 // ***
