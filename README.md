@@ -21,10 +21,10 @@ func main() {
 	err := valeed.Validate(UserForm{})
 	fmt.Println(err.Error()) // UserForm.Name must be required; UserForm.Email must be email; UserForm.Age must be required, actual value is 0; UserForm.CreateAt must be gte{1}, actual value is 0; UserForm.UpdateAt must be required, actual value is 0001-01-01 00:00:00 +0000 UTC; UserForm.Code must be required
 
-	err = valeed.ValidateWithOpts(UserForm{}, valeed.Opts{Mode: valeed.ModeVerbose})
+	err = valeed.ValidateWithOpts(UserForm{}, valeed.ValidateOptions{Mode: valeed.ModeVerbose})
 	fmt.Println(err.Error()) // invalid fields at home/projects/myproject/main.go:24: UserForm.Name must be required; UserForm.Email must be email; UserForm.Age must be required, actual value is 0; UserForm.CreateAt must be gte{1}, actual value is 0; UserForm.UpdateAt must be required, actual value is 0001-01-01 00:00:00 +0000 UTC; UserForm.Code must be required
 
-	err = valeed.ValidateWithOpts(UserForm{}, valeed.Opts{Mode: valeed.ModeCompact})
+	err = valeed.ValidateWithOpts(UserForm{}, valeed.ValidateOptions{Mode: valeed.ModeCompact})
 	fmt.Println(err.Error()) // invalid fields: Name, Email, Age, CreateAt, UpdateAt, Code
 }
 
