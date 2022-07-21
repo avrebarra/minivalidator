@@ -1,4 +1,4 @@
-package valeed
+package minivalidator
 
 import (
 	"fmt"
@@ -10,11 +10,11 @@ import (
 )
 
 var (
-	valeed_SampleValid = SampleStruct{
+	minivalidator_SampleValid = SampleStruct{
 		Value1: "abc",
 		Value2: 120,
 	}
-	valeed_SampleInvalid = SampleStruct{
+	minivalidator_SampleInvalid = SampleStruct{
 		Value1: "",
 		Value2: 1,
 	}
@@ -63,7 +63,7 @@ func TestValidate(t *testing.T) {
 		global = nil
 
 		// act
-		err := Validate(valeed_SampleValid)
+		err := Validate(minivalidator_SampleValid)
 
 		// assert
 		assert.NoError(t, err)
@@ -74,7 +74,7 @@ func TestValidate(t *testing.T) {
 		global = nil
 
 		// act
-		err := Validate(valeed_SampleInvalid)
+		err := Validate(minivalidator_SampleInvalid)
 
 		// assert
 		assert.Error(t, err)
@@ -108,11 +108,11 @@ func TestValidateWithOpts(t *testing.T) {
 	})
 }
 
-func Test_errvaleed_Error(t *testing.T) {
+func Test_errminivalidator_Error(t *testing.T) {
 	t.Run("ok non validator origin", func(t *testing.T) {
 		// arrange
 		orig := fmt.Errorf("random non validation error that possibly wouldnt actually happened")
-		err := errvaleed{original: orig, metamode: ModeDefault, metaerrloc: "-"}
+		err := errminivalidator{original: orig, metamode: ModeDefault, metaerrloc: "-"}
 
 		// act
 		msg := err.Error()
@@ -122,11 +122,11 @@ func Test_errvaleed_Error(t *testing.T) {
 	})
 }
 
-func Test_errvaleed_Unwrap(t *testing.T) {
+func Test_errminivalidator_Unwrap(t *testing.T) {
 	t.Run("ok", func(t *testing.T) {
 		// arrange
 		orig := fmt.Errorf("random non validation error that possibly wouldnt actually happened")
-		err := errvaleed{original: orig, metamode: ModeDefault, metaerrloc: "-"}
+		err := errminivalidator{original: orig, metamode: ModeDefault, metaerrloc: "-"}
 
 		// act
 		msg := err.Unwrap()

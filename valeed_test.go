@@ -1,21 +1,21 @@
-package valeed_test
+package minivalidator_test
 
 import (
 	"strings"
 	"testing"
 
-	"github.com/avrebarra/valeed"
+	"github.com/avrebarra/minivalidator"
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var (
-	valeed_SampleValid = SampleStruct{
+	minivalidator_SampleValid = SampleStruct{
 		Value1: "ok",
 		Value2: 100,
 	}
-	valeed_SampleInvalid = SampleStruct{
+	minivalidator_SampleInvalid = SampleStruct{
 		Value1: "",
 		Value2: 2,
 	}
@@ -24,10 +24,10 @@ var (
 func TestValidator_Validate(t *testing.T) {
 	t.Run("ok valid", func(t *testing.T) {
 		// arrange
-		v := valeed.Validator{Core: validator.New()}
+		v := minivalidator.Validator{Core: validator.New()}
 
 		// act
-		err := v.Validate(valeed_SampleValid)
+		err := v.Validate(minivalidator_SampleValid)
 
 		// assert
 		assert.NoError(t, err)
@@ -35,10 +35,10 @@ func TestValidator_Validate(t *testing.T) {
 
 	t.Run("ok invalid", func(t *testing.T) {
 		// arrange
-		v := valeed.Validator{Core: validator.New()}
+		v := minivalidator.Validator{Core: validator.New()}
 
 		// act
-		err := v.Validate(valeed_SampleInvalid)
+		err := v.Validate(minivalidator_SampleInvalid)
 
 		// assert
 		assert.Error(t, err)
@@ -49,24 +49,24 @@ func TestValidator_Validate(t *testing.T) {
 func TestValidator_ValidateWithOpts(t *testing.T) {
 	t.Run("ok valid", func(t *testing.T) {
 		// arrange
-		v := valeed.Validator{Core: validator.New()}
+		v := minivalidator.Validator{Core: validator.New()}
 
 		// act
-		err := v.ValidateWithOpts(valeed_SampleValid, valeed.ValidateOptions{Mode: valeed.ModeVerbose})
+		err := v.ValidateWithOpts(minivalidator_SampleValid, minivalidator.ValidateOptions{Mode: minivalidator.ModeVerbose})
 
 		// assert
 		assert.NoError(t, err)
 	})
 
 	t.Run("ok invalid", func(t *testing.T) {
-		t.Skip() // already tested in Test_errvaleed_Error
+		t.Skip() // already tested in Test_errminivalidator_Error
 	})
 }
 
-func Test_errvaleed_Error(t *testing.T) {
+func Test_errminivalidator_Error(t *testing.T) {
 	t.Run("ok mode compact", func(t *testing.T) {
 		// arrange
-		err := valeed.ValidateWithOpts(valeed_SampleInvalid, valeed.ValidateOptions{Mode: valeed.ModeCompact})
+		err := minivalidator.ValidateWithOpts(minivalidator_SampleInvalid, minivalidator.ValidateOptions{Mode: minivalidator.ModeCompact})
 		require.Error(t, err)
 
 		// act
@@ -78,7 +78,7 @@ func Test_errvaleed_Error(t *testing.T) {
 
 	t.Run("ok mode verbose", func(t *testing.T) {
 		// arrange
-		err := valeed.ValidateWithOpts(valeed_SampleInvalid, valeed.ValidateOptions{Mode: valeed.ModeVerbose})
+		err := minivalidator.ValidateWithOpts(minivalidator_SampleInvalid, minivalidator.ValidateOptions{Mode: minivalidator.ModeVerbose})
 		require.Error(t, err)
 
 		// act

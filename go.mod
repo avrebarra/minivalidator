@@ -1,4 +1,4 @@
-module github.com/avrebarra/valeed
+module github.com/avrebarra/minivalidator
 
 go 1.15
 
